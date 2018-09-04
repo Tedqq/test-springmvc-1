@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +8,7 @@
 <body>
 	<h1>Success ! </h1>
 	<a href="helloworld">Hello world</a>
-
+	<br><br>
+	names:${requestScope.names}
 </body>
 </html>

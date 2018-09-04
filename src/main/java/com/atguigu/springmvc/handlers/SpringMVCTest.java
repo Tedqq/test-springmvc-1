@@ -1,11 +1,26 @@
 package com.atguigu.springmvc.handlers;
 
+import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ted.springmvc.entities.User;
 
 @Controller
 @RequestMapping("/springmvc")
@@ -13,6 +28,83 @@ public class SpringMVCTest {
 	
 	private static final String SUCCESS="success";
 	
+	
+	
+	@RequestMapping(value="/testMap")
+	public String testMap(Map<String,Object> map) {
+		System.out.println(map.getClass().getName());
+		map.put("names",Arrays.asList("Ted","yichen",""));
+		return SUCCESS;
+	}
+	
+	
+	@RequestMapping(value="/testModelAndView")
+	public ModelAndView testModelAndView() { 
+		String viewName = SUCCESS;
+		ModelAndView modelAndView = new ModelAndView(viewName);
+		modelAndView.addObject("time",new Date());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/testServletApi")
+	public void testServletApi(HttpServletRequest request, HttpServletResponse response, Writer out ) throws IOException { 
+		System.out.println("testServletApi , " + request + " , " + response);
+		out.write("Hello Spring mvc");
+		//return SUCCESS;
+	}
+	
+	@RequestMapping(value="/testPojo")
+	public String testPojo(User user) { 
+		System.out.println("testPojo" + user);
+		return SUCCESS;
+	}
+	
+	@RequestMapping(value="/testCookieValue")
+	public String testCookieValue(@CookieValue("JSESSIONID") String jsessionId) { 
+		System.out.println("testCookieValue" + jsessionId);
+		return SUCCESS;
+	}
+	
+	@RequestMapping(value="/testRequestHeader")
+	public String testRequestHeader(@RequestHeader(value="Accept-Language") String a1) {
+		System.out.println(a1);
+		System.out.println("testRequestHeader");
+		return SUCCESS;
+	}
+	
+	
+	@RequestMapping(value="/testRequestParam")
+	public String testRequestParam(@RequestParam(value="username") String username 
+			, @RequestParam(value="age" , required=false , defaultValue="40") Integer age) { 
+		System.out.println(username + ":" + age);
+		return SUCCESS;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/testRest/{id}" , method=RequestMethod.PUT)
+	public String testRestPut(@PathVariable Integer id) {
+		System.out.println("testRest put "+ id);
+		return SUCCESS;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/testRest/{id}" , method=RequestMethod.DELETE)
+	public String testRestDelete(@PathVariable Integer id) {
+		System.out.println("testRest delete "+ id);
+		return SUCCESS;
+	}
+	
+	@RequestMapping(value="/testRest" , method=RequestMethod.POST)
+	public String testRestPost() {
+		System.out.println("testRest post ");
+		return SUCCESS;
+	}
+	
+	@RequestMapping(value="/testRest/{id}" , method=RequestMethod.GET)
+	public String testRestGet(@PathVariable Integer id) {
+		System.out.println("testRest get "+ id);
+		return SUCCESS;
+	}
 
 	@RequestMapping("/testPathVariable/{id}")  
 	public String testPathVariable(@PathVariable("id") Integer id) {

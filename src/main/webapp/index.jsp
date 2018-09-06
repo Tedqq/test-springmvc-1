@@ -8,7 +8,31 @@
 </head>
 <body>
 
+	<!-- 
+		摸擬修改操作
+		1.原始  1 , tom , 123456 , ted@google.com.tw
+		2.密碼不能被修改
+		3.表單回顯，摸擬操作直接在表單填寫對應的屬性值
+	 -->
+	 <form action="springmvc/testModelAttribute" method="Post">
+	 	<input type="hidden" name="id" value="1">
+	 	username:<input type="text" name="username" value="ted">
+		<br>
+		email:<input type="text" name="email" value="ted_tzeng@settour.com.tw">
+		<br>
+		age:<input type="text" name="age" value="40">
+		<br>
+		<input type="submit" value="testModelAttribute">
+	 </form>
+	 
 
+	<a href="springmvc/testSessionAttributes">testSessionAttributes</a>
+	<br><br>
+
+	<a href="springmvc/testSessionAttributes">testSessionAttributes</a>
+	<br><br>
+	
+	
 	<a href="springmvc/testMap">testMap</a>
 	<br><br>
 

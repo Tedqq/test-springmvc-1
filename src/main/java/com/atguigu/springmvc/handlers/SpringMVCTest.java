@@ -12,16 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ted.springmvc.entities.User;
 
+//@SessionAttributes(value={"user"} , types= {String.class})
 @Controller
 @RequestMapping("/springmvc")
 public class SpringMVCTest {
@@ -29,6 +33,29 @@ public class SpringMVCTest {
 	private static final String SUCCESS="success";
 	
 	
+	@ModelAttribute
+	public void getUser(@RequestParam(value="id",required=false)Integer id , Map<String,Object> map) {
+		if(id != null) {
+			User user = new User(id.toString(),"Ted", "sssddd", "ted_tzeng@settour.com.tw", "30");
+			System.out.println("從db中抓一個user" + user);
+			map.put("user", user);
+		}
+	}
+	
+	@RequestMapping(value="/testModelAttribute") 
+	public String testModelAttribute(User user) {
+		System.out.println("修改"+user);
+		return SUCCESS;
+	}
+	
+	
+	@RequestMapping(value="/testSessionAttributes") 
+	public String testSessionAttributes(Map<String,Object> map) {
+		User user = new User("1","ted", "sssddd", "timetime1979@gmail.com", "30");
+		map.put("user", user);
+		map.put("school", "settour");
+		return SUCCESS;
+	}
 	
 	@RequestMapping(value="/testMap")
 	public String testMap(Map<String,Object> map) {

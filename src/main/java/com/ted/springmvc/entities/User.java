@@ -7,6 +7,7 @@ public class User {
 	private String email;
 	private String age;
 	private Address address;
+	private String id;
 	
 	public String getUsername() {
 		return username;
@@ -41,8 +42,25 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", age=" + age
-				+ ", address=" + address + "]";
+				+ ", id=" + id + "]";
+	}
+	public User(String id,String username, String password, String email, String age) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.age = age;
+		this.id = id;
 	}
 	
+	public User() {
+		
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 }

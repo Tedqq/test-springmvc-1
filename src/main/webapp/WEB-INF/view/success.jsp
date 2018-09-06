@@ -10,5 +10,19 @@
 	<a href="helloworld">Hello world</a>
 	<br><br>
 	names:${requestScope.names}
+	
+	<br><br>
+	
+	request user :${requestScope.user}
+	<br><br>
+	session user :${sessionScope.user}
+	
+	<br><br>
+	request user :${requestScope.school}
+	
+	<br><br>
+	session school :${sessionScope.school}
+	
+	
 </body>
 </html>
